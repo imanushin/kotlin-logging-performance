@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val kotlinJvmTarget = "13"
 val jmhLibraryVersion = "1.23"
+val microutilsLoggingVersion = "1.4.6"
 val applicationStartClass = "com.imanushin.use.performance.StartKt"
 
 plugins {
@@ -17,6 +18,7 @@ repositories {
 
 dependencies {
     api(kotlin("stdlib-jdk8"))
+    api("io.github.microutils:kotlin-logging:$microutilsLoggingVersion")
 }
 
 tasks {
