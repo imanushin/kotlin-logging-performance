@@ -7,23 +7,23 @@ import org.slf4j.LoggerFactory
  * factory methods to obtain a [Logger]
  */
 @Suppress("NOTHING_TO_INLINE")
-internal object KLoggerInlinedFactory {
+internal object KInlineLoggerInlinedFactory {
 
     /**
      * get logger for the class
      */
-    internal inline fun logger(loggable: KLoggableWithInlineLogger): KLoggerInlined =
+    internal inline fun logger(loggable: KInlinedLoggableWithInlineLogger): KInlinedLoggerInlinedFunctions =
             logger(KLoggerNameResolver.name(loggable.javaClass))
 
     /**
      * get logger by explicit name
      */
-    internal inline fun logger(name: String): KLoggerInlined = KLoggerInlined(jLogger(name))
+    internal inline fun logger(name: String): KInlinedLoggerInlinedFunctions = KInlinedLoggerInlinedFunctions(jLogger(name))
 
     /**
      * get logger for the method, assuming it was declared at the logger file/class
      */
-    internal inline fun logger(noinline func: () -> Unit): KLoggerInlined =
+    internal inline fun logger(noinline func: () -> Unit): KInlinedLoggerInlinedFunctions =
             logger(KLoggerNameResolver.name(func))
 
     /**

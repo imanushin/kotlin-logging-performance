@@ -1,9 +1,9 @@
 package com.imanushin.use.performance.benchmarks
 
+import com.imanushin.kotlin.logging.performance.KInlineLoggingWithInlineLogger
 import com.imanushin.kotlin.logging.performance.KLoggingWithInlineLogger
 import mu.KLogging
 import org.openjdk.jmh.annotations.*
-import org.openjdk.jmh.infra.Blackhole
 
 
 @BenchmarkMode(Mode.All)
@@ -16,19 +16,28 @@ open class CompareNoopLoggerCalls {
 
     private val inlinedMethodsCompanion = object : KLoggingWithInlineLogger(){}
 
+    private val inlineLoggerInlineMethods = object : KInlineLoggingWithInlineLogger(){}
+
     @Param("some input")
     lateinit var parameter: String
 
     @Benchmark
-    fun t1microutils(blackhole: Blackhole) {
+    fun t1microutils() {
         microutilsCompanion.logger.trace {
             "Something was wrong: $parameter"
         }
     }
 
     @Benchmark
-    fun t2withInlineMethod(blackhole: Blackhole) {
+    fun t2withInlineMethod() {
         inlinedMethodsCompanion.logger.trace {
+            "Something was wrong: $parameter"
+        }
+    }
+
+    @Benchmark
+    fun t3withInlineLoggerMethod() {
+        inlineLoggerInlineMethods.logger.trace {
             "Something was wrong: $parameter"
         }
     }
